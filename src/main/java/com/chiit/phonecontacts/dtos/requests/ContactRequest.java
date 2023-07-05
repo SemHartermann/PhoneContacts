@@ -19,7 +19,9 @@ public class ContactRequest {
     @NotBlank(message = "name must not be blank")
     private String name;
 
+    @EmailPattern
     private Set<String> emails;
 
+    @PhoneNumberPattern
     private Set<String> phoneNumbers;
 }
