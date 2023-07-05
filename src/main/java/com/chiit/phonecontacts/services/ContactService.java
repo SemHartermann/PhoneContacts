@@ -34,7 +34,7 @@ public class ContactService {
 
         Contact contact = contactRepository
                 .findById(id)
-                .orElseThrow(()->new ContactNotFoundException("Contact not found with id: " + id));
+                .orElseThrow(() -> new ContactNotFoundException("Contact not found with id: " + id));
 
         if (Objects.equals(user.getId(), contact.getId())) {
             contactRepository.deleteById(id);
@@ -46,16 +46,20 @@ public class ContactService {
 
         List<Contact> contactList = contactRepository
                 .findAllByUser(user)
-                .orElseThrow(()->new ContactNotFoundException("Contact not found with user: " + user.getLogin()));
+                .orElseThrow(() -> new ContactNotFoundException("Contact not found with user: " + user.getLogin()));
 
         return contactList;
     }
 
 
-    public Contact editContact(User user, ContactRequest request) {
+    public Contact editContact(User user, Long id, ContactRequest request) throws ContactNotFoundException {
+
+        contactRepository
+                .findById(id)
+                .orElseThrow(() -> new ContactNotFoundException("Contact not found with id: " + id));
 
         var contact = Contact.builder()
-                .id(request.getId())
+                .id(id)
                 .name(request.getName())
                 .emails(request.getEmails())
                 .phoneNumbers(request.getPhoneNumbers())
