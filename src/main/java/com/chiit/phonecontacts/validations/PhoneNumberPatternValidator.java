@@ -12,12 +12,12 @@ public class PhoneNumberPatternValidator implements ConstraintValidator<PhoneNum
     @Override
     public boolean isValid(Set<String> phoneNumbers, ConstraintValidatorContext context) {
 
-        if (phoneNumbers.isEmpty()){
+        if (phoneNumbers == null || phoneNumbers.isEmpty()) {
             return false;
         }
 
-        for (String phoneNumber: phoneNumbers) {
-            if(!PHONE_NUMBER_PATTERN.matcher(phoneNumber).matches()){
+        for (String phoneNumber : phoneNumbers) {
+            if (!PHONE_NUMBER_PATTERN.matcher(phoneNumber).matches()) {
                 return false;
             }
         }

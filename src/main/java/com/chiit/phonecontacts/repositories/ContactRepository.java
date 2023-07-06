@@ -12,7 +12,7 @@ import java.util.Set;
 @Repository
 public interface ContactRepository extends JpaRepository<Contact, Long> {
 
-    Optional<Contact> findByUserIdAndName(Long userId, String name);
+    Optional<Contact> findAllByUserAndId(User user, Long id);
 
     Optional<List<Contact>> findAllByUser(User user);
 }

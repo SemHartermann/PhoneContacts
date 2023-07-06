@@ -33,7 +33,7 @@ public class ContactService {
     public void deleteContact(User user, Long id) throws ContactNotFoundException {
 
         Contact contact = contactRepository
-                .findById(id)
+                .findAllByUserAndId(user, id)
                 .orElseThrow(() -> new ContactNotFoundException("Contact not found with id: " + id));
 
         if (Objects.equals(user.getId(), contact.getId())) {
@@ -55,7 +55,7 @@ public class ContactService {
     public Contact editContact(User user, Long id, ContactRequest request) throws ContactNotFoundException {
 
         contactRepository
-                .findById(id)
+                .findAllByUserAndId(user, id)
                 .orElseThrow(() -> new ContactNotFoundException("Contact not found with id: " + id));
 
         var contact = Contact.builder()
