@@ -25,7 +25,7 @@ public class ApplicationExceptionHandler {
         return errorMap;
     }
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(UserNotFoundException.class)
     public Map<String, String> handleUserException(UserNotFoundException ex) {
         Map<String, String> errorMap = new HashMap<>();
@@ -33,7 +33,7 @@ public class ApplicationExceptionHandler {
         return errorMap;
     }
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ContactNotFoundException.class)
     public Map<String, String> handleContactException(ContactNotFoundException ex) {
         Map<String, String> errorMap = new HashMap<>();
