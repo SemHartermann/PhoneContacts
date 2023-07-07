@@ -23,6 +23,7 @@ public class ContactService {
 
     public Contact addContact(User user, ContactRequest request) throws NameConflictException {
 
+
         var contact = Contact.builder()
                 .name(request.getName())
                 .emails(request.getEmails())

@@ -73,7 +73,7 @@ class ContactControllerTest {
                 .user(user)
                 .build();
 
-        when(userService.getUserFromToken(any())).thenReturn(user);
+        when(userService.getUserFromToken()).thenReturn(user);
         when(contactService.addContact(eq(user), eq(request))).thenReturn(contact);
 
         HttpHeaders headers = new HttpHeaders();
@@ -118,7 +118,7 @@ class ContactControllerTest {
                 .user(user)
                 .build();
 
-        when(userService.getUserFromToken(any())).thenThrow(new UserNotFoundException(""));
+        when(userService.getUserFromToken()).thenThrow(new UserNotFoundException(""));
         when(contactService.addContact(eq(user), eq(request))).thenReturn(contact);
 
         HttpHeaders headers = new HttpHeaders();
@@ -163,7 +163,7 @@ class ContactControllerTest {
                 .user(user)
                 .build();
 
-        when(userService.getUserFromToken(any())).thenReturn(user);
+        when(userService.getUserFromToken()).thenReturn(user);
         when(contactService.addContact(eq(user), eq(request))).thenReturn(contact);
 
         HttpHeaders headers = new HttpHeaders();
@@ -190,7 +190,7 @@ class ContactControllerTest {
                 .build();
 
 
-        when(userService.getUserFromToken(any())).thenReturn(user);
+        when(userService.getUserFromToken()).thenReturn(user);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + "eyJhbGciOiJIUzI1NiJ9.zyJzdWIiOiJNaXNoYSIsImlhdCI6MTY4ODY3MDAxMywiZXhwIjoxNjg4NzU2NDEzfQ.hYxI6rrIxofsJjliX_B2E6tn9hqT40dtdUNO7gr9dXU");
@@ -233,7 +233,7 @@ class ContactControllerTest {
         List<Contact> listContact = new ArrayList<>();
         listContact.add(contact);
 
-        when(userService.getUserFromToken(any())).thenReturn(user);
+        when(userService.getUserFromToken()).thenReturn(user);
         when(contactService.getContacts(eq(user))).thenReturn(listContact);
 
         HttpHeaders headers = new HttpHeaders();
@@ -268,7 +268,7 @@ class ContactControllerTest {
                 .password("adsgfafgafg1241234dsfsdf451235dsfgsdg")
                 .build();
 
-        when(userService.getUserFromToken(any())).thenReturn(user);
+        when(userService.getUserFromToken()).thenReturn(user);
         when(contactService.editContact(eq(user), eq(1L), eq(request))).thenThrow(new ContactNotFoundException(""));
 
         HttpHeaders headers = new HttpHeaders();
@@ -311,7 +311,7 @@ class ContactControllerTest {
                 .user(user)
                 .build();
 
-        when(userService.getUserFromToken(any())).thenReturn(user);
+        when(userService.getUserFromToken()).thenReturn(user);
         when(contactService.editContact(eq(user), eq(1L), eq(request))).thenReturn(contact);
 
         HttpHeaders headers = new HttpHeaders();
@@ -354,7 +354,7 @@ class ContactControllerTest {
                 .user(user)
                 .build();
 
-        when(userService.getUserFromToken(any())).thenReturn(user);
+        when(userService.getUserFromToken()).thenReturn(user);
         when(contactService.editContact(eq(user), eq(1L), eq(request))).thenReturn(contact);
 
         HttpHeaders headers = new HttpHeaders();
