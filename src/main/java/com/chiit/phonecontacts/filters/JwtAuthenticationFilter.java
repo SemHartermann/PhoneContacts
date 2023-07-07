@@ -37,8 +37,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-        jwt = authHeader.split(" ")[1].trim();;
+        jwt = authHeader.split(" ")[1].trim();
         userLogin = jwtService.extractUsername(jwt);
+        if (userLogin==null && SecurityContextHolder.getContext().getAuthentication() == null){
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "The token is not valid.");
+        }
         if (userLogin!=null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userLogin);
             if (jwtService.isTokenValid(jwt, userDetails)){
@@ -51,6 +54,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     new WebAuthenticationDetailsSource().buildDetails(request)
                 );
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+            } else {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "The token is not valid.");
             }
         }
         filterChain.doFilter(request, response);

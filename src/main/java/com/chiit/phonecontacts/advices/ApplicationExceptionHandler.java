@@ -1,6 +1,7 @@
 package com.chiit.phonecontacts.advices;
 
 import com.chiit.phonecontacts.exceptions.ContactNotFoundException;
+import com.chiit.phonecontacts.exceptions.NameConflictException;
 import com.chiit.phonecontacts.exceptions.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -25,11 +26,25 @@ public class ApplicationExceptionHandler {
         return errorMap;
     }
 
-    
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(UserNotFoundException.class)
+    public Map<String, String> handleUserException(UserNotFoundException ex) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("errorMessage", ex.getMessage());
+        return errorMap;
+    }
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ContactNotFoundException.class)
     public Map<String, String> handleContactException(ContactNotFoundException ex) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("errorMessage", ex.getMessage());
+        return errorMap;
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(NameConflictException.class)
+    public Map<String, String> handleContactNameConflictException(NameConflictException ex) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("errorMessage", ex.getMessage());
         return errorMap;
