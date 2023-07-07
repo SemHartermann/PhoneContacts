@@ -5,6 +5,7 @@ import com.chiit.phonecontacts.dtos.requests.RegisterRequest;
 import com.chiit.phonecontacts.entities.Contact;
 import com.chiit.phonecontacts.entities.User;
 import com.chiit.phonecontacts.exceptions.ContactNotFoundException;
+import com.chiit.phonecontacts.exceptions.NameConflictException;
 import com.chiit.phonecontacts.repositories.ContactRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +34,7 @@ class ContactServiceTest {
 
 
     @Test
-    void addContactReturnContact() {
+    void addContactReturnContact() throws NameConflictException {
 
         Set<String> emails = new HashSet<>();
         emails.add("testemail@mail.com");
@@ -153,7 +154,7 @@ class ContactServiceTest {
     }
 
     @Test
-    void editContactReturnContact() throws ContactNotFoundException {
+    void editContactReturnContact() throws ContactNotFoundException, NameConflictException {
         Set<String> emails = new HashSet<>();
         emails.add("testemail@mail.com");
 
