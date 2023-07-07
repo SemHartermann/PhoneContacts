@@ -3,6 +3,7 @@ package com.chiit.phonecontacts.controllers;
 import com.chiit.phonecontacts.dtos.requests.ContactRequest;
 import com.chiit.phonecontacts.entities.Contact;
 import com.chiit.phonecontacts.exceptions.ContactNotFoundException;
+import com.chiit.phonecontacts.exceptions.NameConflictException;
 import com.chiit.phonecontacts.exceptions.UserNotFoundException;
 import com.chiit.phonecontacts.services.ContactService;
 import com.chiit.phonecontacts.services.UserService;
@@ -30,7 +31,7 @@ public class ContactController {
 
     @PostMapping
     public ResponseEntity<Contact> addContact(@RequestHeader("Authorization") String authHeader
-            ,@RequestBody @Valid ContactRequest request) throws UserNotFoundException {
+            ,@RequestBody @Valid ContactRequest request) throws UserNotFoundException, NameConflictException {
         var contact = contactService.addContact(
                 userService.getUserFromToken(authHeader),
                 request
@@ -59,7 +60,10 @@ public class ContactController {
     @PutMapping("/{id}")
     public ResponseEntity <Contact> editContact(@RequestHeader("Authorization") String authHeader
             ,@PathVariable Long id
-            ,@RequestBody @Valid ContactRequest request) throws UserNotFoundException, ContactNotFoundException {
+            ,@RequestBody @Valid ContactRequest request) throws
+            UserNotFoundException
+            ,ContactNotFoundException
+            ,NameConflictException {
         return ResponseEntity.ok(contactService.editContact(
                 userService.getUserFromToken(authHeader),
                 id,
